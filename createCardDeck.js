@@ -3,48 +3,41 @@
  * @returns {Array} deck - a deck of cards
  */
 const getDeck = () => {
-  const deck = []
-  const suits = ['hearts', 'spades', 'clubs', 'diamonds']
+  // a deck to be returned
+  const deck = [];
+// array of suits to loop thru
+  const suitArray = ['hearts', 'spades', 'clubs', 'diamonds'];
+// array of card values to loop thru
+  const cardValArray = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+  {ten: 'Ten', jack: 'Jack', queen:'Queen', king: 'King'}, 'Ace'];
 
-  for (let index = 0; index < suits.length; index++) {
-    // create an array of 13 objects
-    for (let j = 1; j <= 13; j++) {
-      // for each loop, push a card object to the deck
-
-      // special cases for when j > 10
-      const displayVal = ''
-
-      switch (j) {
-        case j === 1:
-          displayVal = 'Ace'
-          break
-        case j > 1 && j <= 10:
-          displayVal = j
-          break
-        case j === 11:
-          displayVal = 'Jack'
-          break
-        case j === 12:
-          displayVal = 'Queen'
-          break
-        case j === 13:
-          displayVal = 'King'
-          break
+  for (let suitIndex = 0; suitIndex < suitArray.length; suitIndex++) {
+    for (let cardVal = 0; cardVal < cardValArray.length; cardVal++) {
+// if statement for storing cards with values not equal to ten
+      if (cardVal !== 8){
+          let currentCard = {
+          val: cardVal + 2,
+          displayVal: cardValArray[cardVal],
+          suit: suitArray[suitIndex]
+        }
+        deck.push(currentCard);
+// else statement for storing cards with values equal to ten
+      } else {
+// creating an object with card display names that have values equal to ten
+        let objectOfTens = cardValArray[8];
+// looping thru the object of cards and creating card objects with values of ten to store in deck
+        for (let key in objectOfTens) {
+          let currentCard = {
+            val: cardVal + 2,
+            displayVal: objectOfTens[key],
+            suit: suitArray[suitIndex]
+          }
+          deck.push(currentCard);
+        }
       }
-
-      const card = {
-        val: j,
-        displayVal: displayVal,
-        suit: suits[index],
-      }
-
-      if (displayVal === 'Ace') {
-        card.val = 11
-      }
-
-      deck.push(card)
     }
   }
+  return deck;
 }
 
 // CHECKS
